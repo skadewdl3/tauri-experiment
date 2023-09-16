@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { Command } from "@tauri-apps/api/shell";
 import { ref } from "vue";
+import { resolveResource } from "@tauri-apps/api/path";
 
 let stdout = ref("");
 let stderr = ref("");
 
 const runScript = async () => {
-  let command = new Command("apt-get", "update");
+
+  let script = await resolveResource('resources/update.sh')
+
+  console.log(script)
+
+  let command = new Command('bash', [script]);
   command.on("close", (data) => {
     console.log(
       `command finished with code ${data.code} and signal ${data.signal}`
