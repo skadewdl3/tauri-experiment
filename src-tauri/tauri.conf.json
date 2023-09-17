@@ -26,6 +26,12 @@
         "open": true,
         "scope": [
           {
+            "name": "sh",
+            "cmd": "sh",
+            "args": [{ "validator": "\\S+" }]
+          },
+
+          {
             "name": "bash",
             "cmd": "bash",
             "args": [{ "validator": "\\S+" }]

@@ -2,43 +2,31 @@
 import { Command } from "@tauri-apps/api/shell";
 import { ref } from "vue";
 import { resolveResource } from "@tauri-apps/api/path";
+import Terminal from './components/Terminal.vue'
+import 'xterm/css/xterm.css'
 
-let stdout = ref("");
-let stderr = ref("");
+let command = ref<Command>();
+let res = ref('hi')
 
 const runScript = async () => {
 
   let script = await resolveResource('resources/update.sh')
 
-  console.log(script)
+  command.value = new Command('bash', script);
+  res.value = 'ok bro'
 
-  let command = new Command('bash', [script]);
-  command.on("close", (data) => {
-    console.log(
-      `command finished with code ${data.code} and signal ${data.signal}`
-    );
-  });
-  command.stdout.on("data", (line) => (stdout.value = line));
-  command.stderr.on("data", (line) => (stderr.value = line));
+  console.log(command.value)
 
-  const child = await command.spawn();
-  console.log("pid:", child.pid);
+  command.value?.spawn();
 };
 </script>
 
 <template>
   <div class="w-full h-screen bg-black text-white">
     <button class="px-2 py-1 text-lg bg-blue-400 rounded" @click="runScript">
-      Click Me
+      Click Me now
     </button>
-    <div>
-      stdout:<br />
-      {{ stdout }}
-    </div>
-    <div>
-      stderr:<br />
-      {{ stderr }}
-    </div>
+    <Terminal :command="command" :res="res" />
   </div>
 </template>
 

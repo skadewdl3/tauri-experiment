@@ -1,2 +1,3 @@
 #!bin/bash
-echo "Hello World"
+sudo apt-get update
+# echo "Hello World"
