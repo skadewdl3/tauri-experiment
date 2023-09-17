@@ -6,17 +6,18 @@ import Terminal from './components/Terminal.vue'
 import 'xterm/css/xterm.css'
 
 let command = ref<Command>();
-let res = ref('hi')
 
 const runScript = async () => {
 
+  // Load script from resources folder
   let script = await resolveResource('resources/update.sh')
 
+  // Instantiate a new 'bash' command
+  // Assign it to the command ref
+  // This ref is to be passed to Terminal component
   command.value = new Command('bash', script);
-  res.value = 'ok bro'
 
-  console.log(command.value)
-
+  // Spawn the command
   command.value?.spawn();
 };
 </script>
@@ -26,7 +27,7 @@ const runScript = async () => {
     <button class="px-2 py-1 text-lg bg-blue-400 rounded" @click="runScript">
       Click Me now
     </button>
-    <Terminal :command="command" :res="res" />
+    <Terminal :command="command" />
   </div>
 </template>
 
