@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { Terminal } from 'xterm'
 import { Command } from '@tauri-apps/api/shell'
+import { FitAddon } from 'xterm-addon-fit'
 
 // Get the props from parent component
 // Props contain the command (instance of Command)
@@ -12,6 +13,7 @@ const props: TerminalProps = defineProps(['command'])
 
 // Instantiate a new xterm terminal
 let terminal = new Terminal()
+let fitAddon = new FitAddon()
 
 // this ref holds value of terminalContainer div
 const terminalContainer = ref(null)
@@ -23,6 +25,8 @@ let listenersSet = false
 watch(terminalContainer, () => {
   if (!terminal.element && terminalContainer.value) {
     terminal.open(terminalContainer.value as HTMLElement)
+    terminal.loadAddon(fitAddon)
+    fitAddon.fit()
   }
 })
 
@@ -56,7 +60,7 @@ watch (props, () => {
 </script>
 
 <template>
-  <div class="terminal-container" ref="terminalContainer"></div>
+  <div class="terminal-container w-full" ref="terminalContainer"></div>
 </template>
 
 <style scoped>
