@@ -28,13 +28,18 @@
           {
             "name": "sh",
             "cmd": "sh",
-            "args": [{ "validator": "\\S+" }]
+            "args": true
           },
 
           {
             "name": "bash",
             "cmd": "bash",
-            "args": [{ "validator": "\\S+" }]
+            "args": true
+          },
+          {
+            "name": "binaries/lynis",
+            "args": true,
+            "sidecar": true
           }
         ]
       }
@@ -50,7 +55,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "resources": ["resources/*"]
+      "resources": ["resources/**/*"],
+      "externalBin": ["binaries/lynis"]
     },
     "security": {
       "csp": null

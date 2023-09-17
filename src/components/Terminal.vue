@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { Terminal } from 'xterm'
+// Vue, Tauri imports
+import { ref, watch, onUnmounted } from 'vue'
 import { Command } from '@tauri-apps/api/shell'
+
+// Xterm.js imports
+import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
+import 'xterm/css/xterm.css'
 
 // Get the props from parent component
 // Props contain the command (instance of Command)
@@ -30,8 +34,6 @@ watch(terminalContainer, () => {
   }
 })
 
-
-
 // When command changes, set listeners for stdout and stderr
 watch (props, () => {
   let { command } = props
@@ -57,12 +59,33 @@ watch (props, () => {
   }
 })
 
+// On unmount, destroy the terminal
+// and remove all listeners from this terminal on the command
+onUnmounted(() => {
+  terminal.dispose()
+  if (props.command) props.command.removeAllListeners() 
+})
 </script>
 
 <template>
   <div class="terminal-container w-full" ref="terminalContainer"></div>
 </template>
 
-<style scoped>
+<style lang="stylus" scoped>
+// Hide scrollbar on the outer container
+.terminal-container
+  overflow hidden
 
+// Style the scrollbar on the terminal
+.xterm
+  height 100%
+  width 100%
+  &-viewport
+    scroll-behavior smooth
+    &::-webkit-scrollbar
+      background transparent
+      width 0.5rem
+      &-thumb
+        background #444
+        border-radius 0.5rem
 </style>

@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import { Command } from "@tauri-apps/api/shell";
-import { ref } from "vue";
-import { resolveResource } from "@tauri-apps/api/path";
-import Terminal from './components/Terminal.vue'
-import 'xterm/css/xterm.css'
+// import { Command } from "@tauri-apps/api/shell";
+// import { ref } from "vue";
+// import { resolveResource } from "@tauri-apps/api/path";
 
-let command = ref<Command>();
+import Sidebar from "./components/Sidebar.vue";
 
-const runScript = async () => {
+// let command = ref<Command>();
 
-  // Load script from resources folder
-  let script = await resolveResource('resources/update.sh')
+// const runScript = async () => {
 
-  // Instantiate a new 'bash' command
-  // Assign it to the command ref
-  // This ref is to be passed to Terminal component
-  command.value = new Command('bash', script);
+//   // Load script from resources folder
+//   let script = await resolveResource('resources/update.sh')
 
-  // Spawn the command
-  command.value?.spawn();
-};
+//   // Instantiate a new 'bash' command
+//   // Assign it to the command ref
+//   // This ref is to be passed to Terminal component
+//   command.value = new Command('bash', script);
+
+//   // Spawn the command
+//   command.value?.spawn();
+// };
 </script>
 
 <template>
-  <div class="w-full h-screen bg-black text-white">
-    <button class="px-2 py-1 text-lg bg-blue-400 rounded" @click="runScript">
-      Click Me now
-    </button>
-    <Terminal :command="command" />
+  <Sidebar class="fixed top-0 left-0 w-1/5 h-screen bg-black text-white" />
+  <div class="h-screen bg-black text-white absolute top-0 right-0 w-4/5">
+    <div class="page-container relative w-full h-screen py-4">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
