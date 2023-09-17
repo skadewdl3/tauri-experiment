@@ -26,6 +26,8 @@ watch(terminalContainer, () => {
   }
 })
 
+
+
 // When command changes, set listeners for stdout and stderr
 watch (props, () => {
   let { command } = props
@@ -34,7 +36,11 @@ watch (props, () => {
     command.on("close", data => {
 
       // Display exit code and exit signal of command
-      terminal.writeln(`command finished with code ${data.code} and signal ${data.signal}`)
+      
+      terminal.writeln(`${'-'.repeat(terminal.cols)}`)
+      terminal.writeln(`Exit code: ${data.code}`)
+      if (data.signal) terminal.writeln(`Signal:${data.signal}`)
+      terminal.writeln(`${'-'.repeat(terminal.cols)}`)
 
       // When command ends, set listenersSet to false
       listenersSet = false
