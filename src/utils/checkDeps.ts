@@ -1,6 +1,10 @@
 import { resolveResource } from '@tauri-apps/api/path'
 import { Command } from '@tauri-apps/api/shell'
 
+const checkLynis = async (): Promise<boolean> => {
+  return true
+}
+
 const checkUFW = async (): Promise<boolean> => {
   let script = await resolveResource('resources/check_deps.sh')
   let command = new Command('bash', [script, 'ufw'])
@@ -12,6 +16,8 @@ const checkUFW = async (): Promise<boolean> => {
 
 const check = async (id: string): Promise<boolean> => {
   switch (id) {
+    case 'lynis':
+      return checkLynis()
     case 'ufw':
       return checkUFW()
     default:

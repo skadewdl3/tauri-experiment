@@ -1,4 +1,6 @@
 <script lang="ts" async setup>
+import useDependencyStore from './../store/dependency'
+
 interface DependencyProps {
   installable?: boolean | undefined
   removable?: boolean | undefined
@@ -23,6 +25,8 @@ if (props.id) {
   installed.value = res
 }
 
+let { appendOutput } = useDependencyStore()
+
 const installDependency = async () => {
   const interval = setInterval(() => {
     if (ellipsis.value.length < 3) {
@@ -34,7 +38,7 @@ const installDependency = async () => {
 
   installing.value = true
   if (props.id) {
-    installDeps.install(props.id).then((success) => {
+    installDeps.install(props.id, appendOutput).then((success) => {
       if (success) {
         installed.value = true
       } else {
@@ -57,7 +61,7 @@ const removeDependency = async () => {
 
   removing.value = true
   if (props.id) {
-    removeDeps.remove(props.id).then((success) => {
+    removeDeps.remove(props.id, appendOutput).then((success) => {
       if (success) {
         installed.value = false
       } else {

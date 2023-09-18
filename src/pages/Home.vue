@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useDependencyStore from './../store/dependency'
 
 const dependencies = [
   {
@@ -17,6 +18,8 @@ const dependencies = [
     id: 'ufw'
   }
 ]
+
+let { terminalOutput } = useDependencyStore()
 </script>
 
 <template>
@@ -36,6 +39,7 @@ const dependencies = [
       </Suspense>
     </li>
   </ol>
+  <Terminal :output="terminalOutput" :collapsible="true" :collapsed="true" :height="10" width="95%" />
 </div>
 </template>
 

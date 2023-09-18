@@ -6,7 +6,6 @@ import Components from 'unplugin-vue-components/vite'
 const autoImportComponentsConfig = {
   include: [/\.[tj]sx?$/, /\.vue\??/],
   dirs: ['./src/components/**', './src/pages/**'],
-  dts: true,
 }
 
 const autoImportConfig = {
