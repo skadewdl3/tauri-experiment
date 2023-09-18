@@ -55,8 +55,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "resources": ["resources/**/*"],
-      "externalBin": ["binaries/lynis"]
+      "resources": ["resources/**/*"]
     },
     "security": {
       "csp": null

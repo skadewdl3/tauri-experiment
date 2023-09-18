@@ -1,15 +1,13 @@
 <script setup lang="ts">
 
-import { ref } from 'vue'
 import { Command } from '@tauri-apps/api/shell'
-import Terminal from '../components/Terminal.vue'
-// import { resolveResource } from '@tauri-apps/api/path'
+import { resolveResource } from '@tauri-apps/api/path'
 
 const command = ref<Command | null>(null)
 
 const runAudit = async () => {
-  // let script = await resolveResource('resources/lynis')
-  command.value = Command.sidecar('binaries/lynis', ['audit', 'system'])
+  let scriptFolder = await resolveResource('resources/lynis')
+  command.value = new Command('bash', [`${scriptFolder}/lynis`, 'audit', 'system'], { cwd: scriptFolder })
   console.log(command.value)
   command.value?.spawn()
 }
@@ -17,7 +15,7 @@ const runAudit = async () => {
 </script>
 
 <template>
-<button class="bg-blue-400 rounded px-4 py-2 active:scale-95 transition-all" @click="runAudit">Run Lynis Audit</button>
+<Button text="Run Lynis Audit" @click="runAudit" />
 <Terminal :command="command" class="w-1/2 max-h-[20rem]" />
 </template>
 

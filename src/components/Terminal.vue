@@ -1,6 +1,5 @@
 <script setup lang="ts">
-// Vue, Tauri imports
-import { ref, watch, onUnmounted } from 'vue'
+// Tauri imports
 import { Command } from '@tauri-apps/api/shell'
 
 // Xterm.js imports
