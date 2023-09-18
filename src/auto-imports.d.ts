@@ -12,5 +12,6 @@ declare global {
   const onMounted: typeof import('vue')['onMounted']
   const onUnmounted: typeof import('vue')['onUnmounted']
   const ref: typeof import('vue')['ref']
+  const removeDeps: typeof import('./utils/removeDeps')['default']
   const watch: typeof import('vue')['watch']
 }

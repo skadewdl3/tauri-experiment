@@ -15,6 +15,5 @@ dependency="$1"
 
 if [ $dependency == "ufw" ]
 then
-    echo "Hello World"
     sudo ufw status
 fi

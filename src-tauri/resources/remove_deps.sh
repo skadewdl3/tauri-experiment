@@ -15,6 +15,5 @@ dependency="$1"
 
 if [ $dependency == "ufw" ]
 then
-    sudo apt-get remove ufw
-    sudo apt-get purge ufw
+    sudo apt-get --assume-yes --purge remove ufw
 fi

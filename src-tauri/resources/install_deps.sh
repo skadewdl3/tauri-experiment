@@ -15,5 +15,5 @@ dependency="$1"
 
 if [ $dependency == "ufw" ]
 then
-    sudo apt-get install ufw
+    sudo apt-get install ufw -y
 fi
