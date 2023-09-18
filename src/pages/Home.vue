@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import Button from '../components/Button.vue';
-
 
 const dependencies = [
   {
@@ -21,13 +19,14 @@ const dependencies = [
 <div class="home">
   <h1 class="dependencies-title text-2xl font-bold">Dependencies</h1>
   <ol class="w-5/6">
-    <li v-for="({ name, description, install }, index) in dependencies" :key="index" class="flex w-full justify-between items-center">
+    <li v-for="({ name, description, install }, index) in dependencies" :key="index" class="flex w-full justify-between items-center my-4 ">
       <div class="dependency-content">
         <h3 class="text-xl"> {{ index + 1 }}. {{ name }}</h3>  
         <p>{{ description }}</p>
       </div>
-      <div class="dependency-install" v-if="install">
-        <Button text="Install" />
+      <div class="dependency-install">
+        <Button text="Install" v-if="install" />
+        <p v-else class="text-green-400 italic">Installed</p>
       </div>
     </li>
   </ol>
