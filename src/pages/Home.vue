@@ -3,14 +3,16 @@
 const dependencies = [
   {
     name: 'Lynis',
-    install: false,
-    description: 'Used for auditing you machine and checking for security vulnerabilities.'
+    installable: false,
+    description: 'Used for auditing you machine and checking for security vulnerabilities.',
+    id: 'lynis'
   },
   {
     name: 'Uncomplicated Firewall',
-    install: true,
+    installable: true,
     command: '...',
-    description: 'Used for managing your firewall settings.'
+    description: 'Used for managing your firewall settings.',
+    id: 'ufw'
   }
 ]
 </script>
@@ -19,15 +21,17 @@ const dependencies = [
 <div class="home">
   <h1 class="dependencies-title text-2xl font-bold">Dependencies</h1>
   <ol class="w-5/6">
-    <li v-for="({ name, description, install }, index) in dependencies" :key="index" class="flex w-full justify-between items-center my-4 ">
+    <li v-for="({ name, description, installable, id }, index) in dependencies" :key="index" class="flex w-full justify-between items-center my-4 ">
       <div class="dependency-content">
         <h3 class="text-xl"> {{ index + 1 }}. {{ name }}</h3>  
         <p>{{ description }}</p>
       </div>
-      <div class="dependency-install">
-        <Button text="Install" v-if="install" />
-        <p v-else class="text-green-400 italic">Installed</p>
-      </div>
+      <Suspense class="dependency-install">
+        <Dependency :installable="installable" :id="id" />
+        <template #fallback>
+          <p class="text-[#ccc] italic">Checking...</p>
+        </template>
+      </Suspense>
     </li>
   </ol>
 </div>
