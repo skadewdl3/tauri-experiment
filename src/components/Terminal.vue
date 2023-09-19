@@ -53,10 +53,9 @@ watch(terminalContainer, () => {
 
 // When command changes, set listeners for stdout and stderr
 watch(props, () => {
-  let { command } = props
-  console.log(command)
-  if (props.output) {
-    props.output.forEach((line) => terminal.writeln(line))
+  let { command, output } = props
+  if (output) {
+    output.forEach((line) => terminal.writeln(line))
   } else if (command && !listenersSet) {
     command.on('close', (data) => {
       // Display exit code and exit signal of command
@@ -81,6 +80,7 @@ watch(props, () => {
 // and remove all listeners from this terminal on the command
 onUnmounted(() => {
   terminal.dispose()
+  fitAddon.dispose()
   console.log(props.command && props.command.removeAllListeners)
   if (props.command && props.command.removeAllListeners)
     props.command.removeAllListeners()

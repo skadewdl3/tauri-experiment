@@ -3,14 +3,16 @@ import { Command } from '@tauri-apps/api/shell'
 
 // Remove Uncomplicated Firewall
 const removeUFW = (callback: (str: string) => void): Promise<boolean> => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let script = await resolveResource('resources/remove_deps.sh')
     let command = new Command('bash', [script, 'ufw'])
     command.on('close', (result) => {
       resolve(result.code === 0)
     })
-    command.stdout.on('data', (data) => callback(data))
-    command.stderr.on('data', (data) => callback(data))
+    if (callback) {
+      command.stdout.on('data', (data) => callback(data))
+      command.stderr.on('data', (data) => callback(data))
+    }
     command.spawn()
   })
 }
