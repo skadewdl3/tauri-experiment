@@ -5,10 +5,8 @@ import { SettingOutlined } from '@ant-design/icons-vue';
 
 const ufwScript = await resolveResource('resources/ufw.sh')
 let command = ref<Command | null>()
-// let stdout = ref<string>('')
 
-let enabled = ref(false)
-let loadingEnabled = ref(false)
+let store = useFirewallStore()
 
 const executeUFWCommand = async (cmd: string) => {
   command.value = new Command('bash', [ufwScript, cmd])
@@ -18,7 +16,7 @@ const executeUFWCommand = async (cmd: string) => {
     cmd == 'enable' ||
     cmd == 'disable'
   ) {
-    loadingEnabled.value = true
+    store.setEnabledLoading(true)
   }
   let result = await command.value.execute()
   updateStatus(cmd, result.stdout, result.stderr)
@@ -27,12 +25,12 @@ const executeUFWCommand = async (cmd: string) => {
 const updateStatus = (cmd: string, stdout: string, stderr: string = '') => {
   if (cmd === 'probe' || cmd === 'status') {
     // console.log(stdout.toLowerCase())
-    enabled.value = stdout.includes('Status: active')
-    loadingEnabled.value = false
+    store.setEnabled(stdout.includes('Status: active'))
+    store.setEnabledLoading(false)
   } else if (cmd === 'enable' || cmd === 'disable') {
     // console.log(stdout.value)
-    enabled.value = !stdout.includes('stopped and disabled')
-    loadingEnabled.value = false
+    store.setEnabled(!stdout.includes('stopped and disabled'))
+    store.setEnabledLoading(false)
   }
 }
 
@@ -51,16 +49,16 @@ onMounted(() => {
           Switch the firewall on or off. The firewall is currently
           <span
             class="font-bold uppercase"
-            :class="{ 'text-red-400': !enabled, 'text-green-400': enabled }"
-            >{{ enabled ? 'on' : 'off' }}.</span
+            :class="{ 'text-red-400': !store.enabled, 'text-green-400': store.enabled }"
+            >{{ store.enabled ? 'on' : 'off' }}.</span
           >
         </p>
       </div>
       <Switch
-        :enabled="enabled"
-        :loading="loadingEnabled"
+        :enabled="store.enabled"
+        :loading="store.enabledLoading"
         @click="
-          enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
+          store.enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
         "
       />
     </div>
@@ -76,10 +74,10 @@ onMounted(() => {
         <div class="flex items-center justify-around">
 
           <Switch
-            :enabled="enabled"
-            :loading="loadingEnabled"
+            :enabled="store.enabled"
+            :loading="store.enabledLoading"
             @click="
-              enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
+              store.enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
             "
           />
           <SettingOutlined class="ml-2 hover:border-gray-400/50 border-black border-2 border-solid rounded p-1 cursor-pointer" />
@@ -90,10 +88,10 @@ onMounted(() => {
         <div class="flex items-center justify-around">
 
           <Switch
-            :enabled="enabled"
-            :loading="loadingEnabled"
+            :enabled="store.enabled"
+            :loading="store.enabledLoading"
             @click="
-              enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
+              store.enabled ? executeUFWCommand('disable') :  executeUFWCommand('enable')
             "
           />
           <SettingOutlined class="ml-2 hover:border-gray-400/50 border-black border-2 border-solid rounded p-1 cursor-pointer" />

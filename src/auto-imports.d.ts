@@ -7,11 +7,15 @@ export {}
 declare global {
   const checkDeps: typeof import('./utils/checkDeps')['default']
   const computed: typeof import('vue')['computed']
+  const dependency: typeof import('./store/dependency')['default']
+  const firewall: typeof import('./store/firewall')['default']
   const installDeps: typeof import('./utils/installDeps')['default']
   const installUFW: typeof import('./utils/installDeps')['installUFW']
   const onMounted: typeof import('vue')['onMounted']
   const onUnmounted: typeof import('vue')['onUnmounted']
   const ref: typeof import('vue')['ref']
   const removeDeps: typeof import('./utils/removeDeps')['default']
+  const useDependencyStore: typeof import('./store/dependency')['useDependencyStore']
+  const useFirewallStore: typeof import('./store/firewall')['useFirewallStore']
   const watch: typeof import('vue')['watch']
 }

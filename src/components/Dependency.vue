@@ -1,5 +1,4 @@
 <script lang="ts" async setup>
-import useDependencyStore from './../store/dependency'
 
 interface DependencyProps {
   installable?: boolean | undefined

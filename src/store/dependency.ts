@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import { Ref } from 'vue'
 
-const useDependencyStore = defineStore('dependencies', () => {
+export const useDependencyStore = defineStore('dependencies', () => {
   const terminalOutput: Ref<string[]> = ref([])
   const appendOutput = (str: string) => {
     terminalOutput.value.push(str)
@@ -11,4 +11,3 @@ const useDependencyStore = defineStore('dependencies', () => {
   return { terminalOutput, appendOutput }
 })
 
-export default useDependencyStore

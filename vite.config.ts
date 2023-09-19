@@ -15,7 +15,7 @@ const autoImportConfig = {
       vue: ['ref', 'watch', 'computed', 'onMounted', 'onUnmounted'],
     },
   ],
-  dirs: ['./src/utils'],
+  dirs: ['./src/utils', './src/store'],
   dts: './src/auto-imports.d.ts',
 }
 

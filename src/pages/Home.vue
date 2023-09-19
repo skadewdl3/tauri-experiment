@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import useDependencyStore from './../store/dependency'
-
 const dependencies = [
   {
     name: 'Lynis',
