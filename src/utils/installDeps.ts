@@ -1,4 +1,3 @@
-import { resolveResource } from '@tauri-apps/api/path'
 import { Command } from '@tauri-apps/api/shell'
 
 // Install Uncomplicated Firewall

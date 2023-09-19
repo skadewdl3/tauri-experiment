@@ -1,4 +1,3 @@
-import { resolveResource } from '@tauri-apps/api/path'
 import { Command } from '@tauri-apps/api/shell'
 
 // Remove Uncomplicated Firewall
@@ -16,7 +15,6 @@ const removeUFW = (callback: (str: string) => void): Promise<boolean> => {
     command.spawn()
   })
 }
-
 
 // Uses the id of the dependency to
 // call the correct function to install it

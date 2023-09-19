@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 import { Command } from '@tauri-apps/api/shell'
-import { resolveResource } from '@tauri-apps/api/path'
 
 const command = ref<Command | null>(null)
 

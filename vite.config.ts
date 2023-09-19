@@ -12,7 +12,10 @@ const autoImportConfig = {
   include: [/\.[tj]sx?$/, /\.vue\??/],
   imports: [
     {
-      vue: ['ref', 'watch', 'computed', 'onMounted', 'onUnmounted'],
+      vue: ['ref', 'watch', 'computed', 'onMounted', 'onUnmounted', 'toRefs'],
+      'vue-router': ['useRouter', 'useRoute'],
+      '@tauri-apps/api/path': ['resolveResource'],
+      '@tauri-apps/api/shell': ['Command'],
     },
   ],
   dirs: ['./src/utils', './src/store'],
