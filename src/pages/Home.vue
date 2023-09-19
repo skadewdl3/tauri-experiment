@@ -25,7 +25,7 @@ let { terminalOutput } = useDependencyStore()
 <template>
 <div class="home">
   <h1 class="dependencies-title text-2xl font-bold">Dependencies</h1>
-  <ol class="w-5/6">
+  <ol class="w-full">
     <li v-for="({ name, description, installable, id, removable }, index) in dependencies" :key="index" class="flex w-full justify-between items-center my-4 ">
       <div class="dependency-content">
         <h3 class="text-xl"> {{ index + 1 }}. {{ name }}</h3>  
@@ -39,7 +39,7 @@ let { terminalOutput } = useDependencyStore()
       </Suspense>
     </li>
   </ol>
-  <Terminal :output="terminalOutput" :collapsible="true" :collapsed="true" :height="10" width="95%" />
+  <Terminal :output="terminalOutput" :collapsible="true" :collapsed="true" :height="10" width="100%" />
 </div>
 </template>
 
